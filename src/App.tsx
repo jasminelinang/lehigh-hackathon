@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import Home from "./pages/Home";
 import { getTodos, createTodo, Todo } from "./components/services/todoService";
 import { initGoogleCalendar, listEvents, CalendarEvent } from "./components/services/googleCalendar";
 import { getRecipes, Recipe } from "./components/services/recipeAPI";
 
-const App: React.FC = () => {
+const Dashboard: React.FC = () => {
+  const navigate = useNavigate();
+
   // --- Todos ---
   const [todos, setTodos] = useState<Todo[]>([]);
-
-  useEffect(() => {
-    setTodos(getTodos());
-  }, []);
+  useEffect(() => setTodos(getTodos()), []);
 
   const handleCreateTodo = () => {
     const content = window.prompt("Todo content");
-    if (content) {
-      const newTodo = createTodo(content);
-      setTodos([newTodo, ...todos]);
-    }
+    if (content) setTodos([createTodo(content), ...todos]);
   };
 
   // --- Google Calendar ---
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [loadingEvents, setLoadingEvents] = useState(true);
-
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -54,7 +51,6 @@ const App: React.FC = () => {
     }
   };
 
-  // --- Helper to safely format event dates ---
   const formatEventDate = (event: CalendarEvent) => {
     const dateStr = event.start.dateTime || event.start.date;
     return dateStr ? new Date(dateStr).toLocaleString() : "No date";
@@ -63,6 +59,14 @@ const App: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
+
+      {/* ✅ Home Page Button */}
+      <button
+        onClick={() => navigate("/")}
+        className="bg-purple-600 text-white px-4 py-2 rounded mb-4 hover:bg-purple-700 transition"
+      >
+        Go to Home Page
+      </button>
 
       {/* Todos Section */}
       <section className="mb-8">
@@ -117,6 +121,15 @@ const App: React.FC = () => {
         )}
       </section>
     </div>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+    </Routes>
   );
 };
 
