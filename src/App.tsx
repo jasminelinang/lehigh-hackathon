@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { getTodos, createTodo, Todo } from "./components/services/todoService";
 import { initGoogleCalendar, listEvents, CalendarEvent } from "./components/services/googleCalendar";
 import { getRecipes, Recipe } from "./components/services/recipeAPI";
+import { Link } from "react-router-dom";
+
+
 
 const App: React.FC = () => {
   // --- Todos ---
@@ -62,9 +65,22 @@ const App: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
+   <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
+{/* Sign Up Button */}
+<div className="mb-8">
+  <Link
+    to="/signup"
+    className="inline-block bg-purple-500 text-white font-bold text-lg px-6 py-3 rounded hover:bg-purple-600"
+  >
+    Sign Up
+  </Link>
+</div>
 
-      {/* Todos Section */}
+
+
+
+
+     {/* Todos Section */}
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-2">My Todos</h2>
         <button
