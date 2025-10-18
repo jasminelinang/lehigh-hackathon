@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ import this
+import { Routes, Route, useNavigate } from "react-router-dom";
+import Home from "./pages/Home";
 import { getTodos, createTodo, Todo } from "./components/services/todoService";
 import { initGoogleCalendar, listEvents, CalendarEvent } from "./components/services/googleCalendar";
 import { getRecipes, Recipe } from "./components/services/recipeAPI";
@@ -9,23 +10,16 @@ const App: React.FC = () => {
 
   // --- Todos ---
   const [todos, setTodos] = useState<Todo[]>([]);
-
-  useEffect(() => {
-    setTodos(getTodos());
-  }, []);
+  useEffect(() => setTodos(getTodos()), []);
 
   const handleCreateTodo = () => {
     const content = window.prompt("Todo content");
-    if (content) {
-      const newTodo = createTodo(content);
-      setTodos([newTodo, ...todos]);
-    }
+    if (content) setTodos([createTodo(content), ...todos]);
   };
 
   // --- Google Calendar ---
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [loadingEvents, setLoadingEvents] = useState(true);
-
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -128,6 +122,15 @@ const App: React.FC = () => {
         )}
       </section>
     </div>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+    </Routes>
   );
 };
 
