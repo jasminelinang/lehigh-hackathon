@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // ✅ import this
 import { getTodos, createTodo, Todo } from "./components/services/todoService";
 import { initGoogleCalendar, listEvents, CalendarEvent } from "./components/services/googleCalendar";
 import { getRecipes, Recipe } from "./components/services/recipeAPI";
 
 const App: React.FC = () => {
+  const navigate = useNavigate(); // ✅ hook to programmatically navigate
+
   // --- Todos ---
   const [todos, setTodos] = useState<Todo[]>([]);
 
@@ -54,7 +57,7 @@ const App: React.FC = () => {
     }
   };
 
-  // --- Helper to safely format event dates ---
+  // --- Helper ---
   const formatEventDate = (event: CalendarEvent) => {
     const dateStr = event.start.dateTime || event.start.date;
     return dateStr ? new Date(dateStr).toLocaleString() : "No date";
@@ -63,6 +66,14 @@ const App: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
+
+      {/* Navigation Button to Dashboard.jsx */}
+      <button
+        onClick={() => navigate("/dashboard")} // ✅ navigate to /dashboard route
+        className="bg-purple-500 text-white px-4 py-2 rounded mb-4"
+      >
+        Go to Dashboard Page
+      </button>
 
       {/* Todos Section */}
       <section className="mb-8">

@@ -1,11 +1,16 @@
-// src/main.tsx
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";  // make sure this points to your App file
-import "./index.css";     // optional, remove default gradient if needed
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import App from "./App";
+import Dashboard from "./pages/Dashboard.tsx";
+import SignUp from "./pages/SignUp.tsx";
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<App />} />          {/* Home / App */}
+      <Route path="/signup" element={<SignUp/>} />
+      <Route path="/dashboard" element={<Dashboard />} /> {/* Dashboard page */}
+    </Routes>
+  </BrowserRouter>
 );
