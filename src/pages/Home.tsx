@@ -16,32 +16,31 @@ const Home: React.FC = () => {
           <a href="#about">About</a>
           <a href="#why">Why Ejenda</a>
         </nav>
-        
-        
       </header>
 
-  {/*Hero section free gal*/}
+      {/* Hero section */}
       <section className="hero">
-  <img src={heroImg} alt="Ejenda Hero" className="hero-img" /> 
-<div className="hero-overlay">
-    <h1>Ejenda</h1>
-    <p>Your day your way.</p>
-  </div>
-</section>
-
+        <img src={heroImg} alt="Ejenda Hero" className="hero-img" /> 
+        <div className="hero-overlay">
+          <h1>Ejenda</h1>
+          <p>Your day your way.</p>
+        </div>
+      </section>
 
       {/* About Section */}
       <section id="about" className="about">
+        {/* Image on the left */}
+        <img src={aboutImg} alt="About Ejenda" className="about-img" />
+        
+        {/* Yellow container on the right */}
         <div className="content-wrapper yellow">
           <div className="about-inner">
-            <img src={aboutImg} alt="About Ejenda" className="about-img" />
             <div className="about-text">
               <h2>About Ejenda</h2>
               <p>
-                Manage your calendar, personalize your meal prep, and create a
-                gym routine that fits your lifestyle.
+                Manage your calendar, personalized meal prep, create a gym routine!
               </p>
-              <button>Sign up / Log in</button>
+              <button>Sign up/Log-in</button>
             </div>
           </div>
         </div>
